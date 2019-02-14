@@ -7,13 +7,22 @@ provider:
   timeout: 10
   region: eu-west-1
   environment:
-    EndpointName: mlbot-classify-ep--2019-02-14-09-16-45
+    EndpointName: ${self:custom.sagemakerEndpointName}
   iamRoleStatements:
     -  Effect: "Allow"
        Action:
          - "sagemaker:InvokeEndpoint"
-       Resource: "arn:aws:sagemaker:eu-west-1:840574570967:endpoint/mlbot-classify-ep--2019-02-14-09-16-45"
+       Resource: "arn:aws:sagemaker:eu-west-1:840574570967:endpoint/${self:custom.sagemakerEndpointName}"
+    -  Effect: "Allow"
+       Action:
+         - "rekognition:DetectLabels"
+       Resource: "*"
+
+custom:
+  sagemakerEndpointName: mlbot-classify-ep--2019-02-14-09-16-45
 
 functions:
   classify:
     handler: classify.lambda_handler
+  detect:
+    handler: detect.lambda_handler
