@@ -2,7 +2,7 @@ service: mlbot
 
 provider:
   name: aws
-  runtime: python3.6
+  runtime: python3.7
   memorySize: 512 # memory >=512 MB has much more predictable performance
   timeout: 10
   region: eu-west-1
