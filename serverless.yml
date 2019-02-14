@@ -1,0 +1,19 @@
+service: mlbot
+
+provider:
+  name: aws
+  runtime: python3.6
+  memorySize: 512 # memory >=512 MB has much more predictable performance
+  timeout: 10
+  region: eu-west-1
+  environment:
+    EndpointName: mlbot-classify-ep--2019-02-14-09-16-45
+  iamRoleStatements:
+    -  Effect: "Allow"
+       Action:
+         - "sagemaker:InvokeEndpoint"
+       Resource: "arn:aws:sagemaker:eu-west-1:840574570967:endpoint/mlbot-classify-ep--2019-02-14-09-16-45"
+
+functions:
+  classify:
+    handler: classify.lambda_handler
