@@ -29,4 +29,8 @@ def classify_aircraft(url):
 def lambda_handler(event, context):
     print(event)
 
-    print("Aircraft detected: " + classify_aircraft(event['url']))
+    for record in event['Records']:
+
+        request = json.loads(record['body'])
+
+        print("Aircraft detected: " + classify_aircraft(request['url']))
