@@ -34,10 +34,16 @@ custom:
   classifierName: mlbot-${opt:stage}-classify
   detectorName: mlbot-${opt:stage}-detect
 
+package:
+  exclude:
+    - '**/*'
+  include:
+    - 'functions/*.py'
+
 functions:
   classify:
-    handler: classify.lambda_handler
+    handler: functions/classify.lambda_handler
   detect:
-    handler: detect.lambda_handler
+    handler: functions/detect.lambda_handler
   handler:
-    handler: handler.lambda_handler
+    handler: functions/handler.lambda_handler
