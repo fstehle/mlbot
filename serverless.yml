@@ -30,6 +30,7 @@ provider:
          - "sqs:ReceiveMessage"
          - "sqs:DeleteMessage"
          - "sqs:GetQueueAttributes"
+         - "sqs:SendMessage"
        Resource:
          Fn::GetAtt: SQSQueue.Arn
 
@@ -52,6 +53,8 @@ functions:
     handler: functions/classify.lambda_handler
   detect:
     handler: functions/detect.lambda_handler
+  dispatch:
+    handler: functions/dispatch.lambda_handler
   handler:
     handler: functions/handler.lambda_handler
     events:
