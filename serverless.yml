@@ -12,6 +12,7 @@ provider:
     DetectorName: ${self:custom.detectorName}
     QueueUrl:
       Ref: SQSQueue
+    SlackToken: ${ssm:/${self:service}-${opt:stage}/SLACK_TOKEN~true}
   iamRoleStatements:
     -  Effect: "Allow"
        Action:

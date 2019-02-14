@@ -33,4 +33,19 @@ def lambda_handler(event, context):
 
         request = json.loads(record['body'])
 
-        print("Aircraft detected: " + classify_aircraft(request['url']))
+        event = request['event']
+        text = event['text']
+
+        matches = re.search( 'classify\s+<(.*)>', text, re.IGNORECASE)
+        if matches:
+
+            url = matches.group(1)
+            aircraft = classify_aircraft(url)
+            print(aircraft)
+
+            data = {'token':os.environ['SlackToken'],
+                    'channel':event['channel'],
+                    'thread_ts':event['ts'],
+                    'text': "Aircraft detected: " + aircraft }
+
+            r = requests.post(url = 'https://slack.com/api/chat.postMessage', data = data)
