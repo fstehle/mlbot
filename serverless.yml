@@ -10,6 +10,8 @@ provider:
     EndpointName: ${self:custom.sagemakerEndpointName}
     ClassifierName: ${self:custom.classifierName}
     DetectorName: ${self:custom.detectorName}
+    QueueUrl:
+      Ref: SQSQueue
   iamRoleStatements:
     -  Effect: "Allow"
        Action:
