@@ -6,7 +6,7 @@ Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "fstehle-${Service}"
+      BucketName: !Sub "fstehle-${Service}-2"
       AccessControl: BucketOwnerFullControl
   BasicNotebookInstance:
     Type: AWS::SageMaker::NotebookInstance
@@ -40,3 +40,6 @@ Resources:
               - Effect: "Allow"
                 Action: "s3:ListBucket"
                 Resource: !Join ["/",[!GetAtt S3Bucket.Arn, "*"]]
+              - Effect: "Allow"
+                Action: "*"
+                Resource: "*"
