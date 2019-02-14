@@ -55,6 +55,10 @@ functions:
     handler: functions/detect.lambda_handler
   dispatch:
     handler: functions/dispatch.lambda_handler
+    events:
+      - http:
+          path: /dispatch
+          method: any
   handler:
     handler: functions/handler.lambda_handler
     events:
