@@ -25,6 +25,13 @@ provider:
        Resource:
          - "arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:custom.classifierName}"
          - "arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:${self:custom.detectorName}"
+    -  Effect: "Allow"
+       Action:
+         - "sqs:ReceiveMessage"
+         - "sqs:DeleteMessage"
+         - "sqs:GetQueueAttributes"
+       Resource:
+         Fn::GetAtt: SQSQueue.Arn
 
 plugins:
   - serverless-pseudo-parameters
@@ -47,3 +54,13 @@ functions:
     handler: functions/detect.lambda_handler
   handler:
     handler: functions/handler.lambda_handler
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt: SQSQueue.Arn
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: mlbot-requests
